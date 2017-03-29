@@ -1,0 +1,6 @@
+{
+  "name": "we-devs-viz",
+  "short_name": "we-devs-viz",
+  "start_url": "/",
+  "display": "standalone"
+}
