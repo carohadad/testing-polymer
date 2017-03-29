@@ -4,19 +4,27 @@
 <link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../bower_components/emoji-selector/emoji-selector.html">
 <link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="../../bower_components/datamaps/dist/datamaps.world.min.js"></script>
 
 
 <dom-module id="we-devs-viz-app">
   <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
 
     <h2> We Devs Viz</h2>
     
-    <paper-countries country="[[country]]" auto-validate="true"></paper-countries>
+    <paper-countries 
+      id="country" 
+      country="[[country]]" 
+      auto-validate="true" 
+      required 
+      label="Where are you from?" 
+      attr-for-selected="value" 
+      selected="{{selectedCountry}}">
+    </paper-countries>
+
+    <div id="container" style="position: relative; width: 500px; height: 300px;"></div>
 
     <paper-input label="Age" auto-validate always-float-label pattern="[0-9]*" error-message="Ages between 0 and 110 only :P" min=0 max=110 preventInvalidInput type="number"></paper-input>
 
@@ -36,9 +44,24 @@
 
   <script>
     Polymer({
-
-      is: 'we-devs-viz-app'
-
+      is: 'we-devs-viz-app',
     });
+
+  
+    window.onload = function() {
+      var map = new Datamap({
+        element: document.getElementById('container'),
+        fills: {
+          defaultFill: "#757575",
+        },
+        geographyConfig: {
+          highlightFillColor: '#536DFE',
+          highlightBorderColor: '#536DFE',
+
+        }
+      });
+
+
+    };
   </script>
 </dom-module>
